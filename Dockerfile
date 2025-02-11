@@ -1,19 +1,23 @@
-FROM nginx
+FROM nginx:1.13-alpine
 
+# Disable nginx welcome page
 RUN mv /etc/nginx/conf.d/default.conf /etc/nginx/conf.d/default.conf.disabled
 
+# Copy nginx conf from Render secret named `nginx.conf`
 COPY nginx.conf /etc/nginx/conf.d/nginx.conf
 
+# Test config
 RUN nginx -t
 
-FROM python:3.10
+FROM python:3.11-slim
 
-WORKDIR /code
+WORKDIR /app
 
-COPY ./requirements.txt /code/requirements.txt
+COPY requirements.txt .
+RUN pip install -r requirements.txt
 
-RUN pip install --no-cache-dir --upgrade -r /code/requirements.txt
+COPY . .
 
-COPY . /code
+EXPOSE 8000
 
-CMD ["fastapi", "run", "main.py", "--port", "8000", "--proxy-headers"]
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000", "--proxy-headers"]
