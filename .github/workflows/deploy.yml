@@ -26,5 +26,5 @@ jobs:
       - name: Deploy to Render
         uses: bounceapp/render-action@0.6.0
         with:
-          service-id: srv-culffe56l47c73dnqi20
+          service-id: "srv-culffe56l47c73dnqi20"
           render-token: ${{ secrets.RENDER_API_KEY }}
