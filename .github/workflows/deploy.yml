@@ -1,32 +1,26 @@
 name: Deploy to Render
 
+
 on:
+  pull_request:
+    types:
+      - closed
+    branches: [main]
   push:
-    branches:
-      - main  # Trigger on push to the main branch
+    branches: [main]
 
 jobs:
   deploy:
+    name: Deploy to Render
+    needs: test
+    # if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: "3.11"
-
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
-
-      - name: Deploy to Render
-        uses: bounceapp/render-action@0.6.0
-        with:
-          service-id: srv-culffe56l47c73dnqi20
-          render-token: ${{ secrets.RENDER_API_KEY }}
-          github-token: ${{ secrets.RENDER_GITHUB_TOKEN }}
-          retries: 10
+      - uses: actions/checkout@v3
+        # Only run this step if the branch is main
+      # if: github.ref == 'refs/heads/main'
+      - name:
+        env:
+          deploy_url: ${{ secrets.RENDER_DEPLOY_HOOK_URL }}
+          run: |
+            curl "$deploy_url"
