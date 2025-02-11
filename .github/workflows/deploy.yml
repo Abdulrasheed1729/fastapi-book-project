@@ -5,6 +5,8 @@ name: Deploy to Render
 
 on:
   pull_request:
+    types:
+      - closed
   push:
     branches: [main]
 
@@ -24,9 +26,10 @@ jobs:
           pip install -r requirements.txt
       - name: Run tests
         run: pytest
-      - name: Deploy
+      - name: Deploy to render
         # Only run this step if the branch is main
-        if: github.ref == 'refs/heads/main'
+        # if: github.ref == 'refs/heads/main'
+        if: github.event.pull_request.merged == true
         env:
           deploy_url: ${{ secrets.RENDER_DEPLOY_HOOK_URL }}
         run: |
