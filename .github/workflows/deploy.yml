@@ -29,3 +29,4 @@ jobs:
           service-id: srv-culffe56l47c73dnqi20
           render-token: ${{ secrets.RENDER_API_KEY }}
           github-token: ${{ secrets.RENDER_GITHUB_TOKEN }}
+          retries: 10
