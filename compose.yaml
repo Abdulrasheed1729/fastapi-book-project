@@ -13,17 +13,24 @@ services:
         max-file: "1"
         max-size: "100k"
   nginx:
-    build: 
-      context: ./nginx
-    volumes:
-      - type: bind
-        source: ./nginx/nginx.conf
-        target: /etc/nginx/conf.d/default.conf
-        read_only: true
+    restart: unless-stopped
+    image: nginx
+    container_name: nginx
     ports:
-      - 80:80
+      - "80:80"
+      # - "443:443"
+    # environment:
+    #   - CERTBOT_EMAIL=youremail@gmail.com
+    volumes:
+      - ./nginx:/etc/nginx/user_conf.d:ro
+      # - letsencrypt:/etc/letsencrypt
     depends_on:
       - web
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "100k"
+        max-file: "1"
     networks:
       - app_network  # Make sure nginx is explicitly in the network
 networks:
