@@ -15,7 +15,7 @@ services:
   nginx:
     build: 
       context: ./nginx  # Assuming you'll put the Dockerfile in a nginx directory
-      dockerfile: Dockerfile
+      dockerfile: ./nginx/Dockerfile
     volumes:
       - type: bind
         source: ./nginx/nginx.conf
