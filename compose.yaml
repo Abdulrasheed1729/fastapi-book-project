@@ -5,7 +5,7 @@ services:
     ports:
       - "8000:8000"
     networks:
-      app_network
+      - app_network
     restart: unless-stopped
     logging:
       driver: "json-file"
@@ -24,7 +24,7 @@ services:
     # environment:
     #   - CERTBOT_EMAIL=youremail@gmail.com
     networks:
-      app_network
+      - app_network
     volumes:
       - ./nginx:/etc/nginx/user_conf.d:ro
       # - letsencrypt:/etc/letsencrypt
