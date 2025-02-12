@@ -12,10 +12,10 @@ services:
       options:
         max-file: "1"
         max-size: "100k"
-
-
   nginx:
-    image: nginx
+    build: 
+      context: ./nginx  # Assuming you'll put the Dockerfile in a nginx directory
+      dockerfile: Dockerfile
     volumes:
       - type: bind
         source: ./nginx/nginx.conf
@@ -23,9 +23,10 @@ services:
         read_only: true
     ports:
       - 80:80
-    depends_on: 
+    depends_on:
       - web
-
+    networks:
+      - app_network  # Make sure nginx is explicitly in the network
 networks:
   app_network:
     driver: bridge
