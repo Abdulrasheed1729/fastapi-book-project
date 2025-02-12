@@ -4,6 +4,8 @@ services:
     container_name: web
     ports:
       - "8000:8000"
+    networks:
+      app_network
     restart: unless-stopped
     logging:
       driver: "json-file"
@@ -21,6 +23,8 @@ services:
       # - "443:443"
     # environment:
     #   - CERTBOT_EMAIL=youremail@gmail.com
+    networks:
+      app_network
     volumes:
       - ./nginx:/etc/nginx/user_conf.d:ro
       # - letsencrypt:/etc/letsencrypt
@@ -31,3 +35,7 @@ services:
       options:
         max-size: "100k"
         max-file: "1"
+
+networks:
+  app_network:
+    driver: bridge
