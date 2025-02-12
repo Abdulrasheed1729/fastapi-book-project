@@ -1,12 +1,6 @@
-name: Deploy to Render
-
-
-# .github/workflows/ci.yml
+name: deploy
 
 on:
-  pull_request:
-    types:
-      - closed
   push:
     branches: [main]
 
