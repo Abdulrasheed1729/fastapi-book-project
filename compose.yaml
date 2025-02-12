@@ -14,8 +14,7 @@ services:
         max-size: "100k"
   nginx:
     build: 
-      context: ./nginx  # Assuming you'll put the Dockerfile in a nginx directory
-      dockerfile: ./nginx/Dockerfile
+      context: ./nginx
     volumes:
       - type: bind
         source: ./nginx/nginx.conf
