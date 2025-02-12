@@ -3,7 +3,7 @@ services:
     image: 0xfc2f/fastapi-book-project:latest
     container_name: web
     ports:
-      - "8000:8000"
+      - "5000:5000"
     networks:
       - app_network
     restart: unless-stopped
