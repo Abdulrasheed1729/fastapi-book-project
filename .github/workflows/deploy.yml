@@ -26,6 +26,7 @@ jobs:
           key: ${{ secrets.KEY }}
           script: |
             cd /home/rasheed/app
-            source venv/bin/activate
             pip3 install -r requirements.txt
-            systemctl restart fastapi
+            chmod u+x gunicorn_start
+            sudo supervisorctl reread
+            sudo supervisorctl update
