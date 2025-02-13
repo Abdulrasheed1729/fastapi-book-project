@@ -9,16 +9,12 @@ WORKER_CLASS=uvicorn.workers.UvicornWorker
 VENV=$DIR/.venv/bin/activate
 BIND=unix:$DIR/run/gunicorn.sock
 LOG_LEVEL=error
-PORT=8000
-HOST=0.0.0.0
 
 cd $DIR
 source $VENV
 
 exec gunicorn main:app \
   --name $NAME \
-  --host $HOST \
-  --port $PORT \
   --workers $WORKERS \
   --worker-class $WORKER_CLASS \
   --user=$USER \
