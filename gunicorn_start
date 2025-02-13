@@ -16,7 +16,6 @@ source $VENV
 exec gunicorn main:app \
   --name $NAME \
   --workers $WORKERS \
-  --reload \
   --worker-class $WORKER_CLASS \
   --user=$USER \
   --group=$GROUP \
