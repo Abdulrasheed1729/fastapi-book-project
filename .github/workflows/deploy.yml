@@ -26,7 +26,10 @@ jobs:
           key: ${{ secrets.KEY }}
           script: |
             cd /home/rasheed/app
+            python -m venv venv
+            source venv/bin/activate
             pip3 install -r requirements.txt
+            pip3 install gunicorn
             chmod u+x gunicorn_start
             sudo supervisorctl reread
             sudo supervisorctl update
