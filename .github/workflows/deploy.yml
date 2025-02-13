@@ -33,3 +33,4 @@ jobs:
             chmod u+x gunicorn_start
             sudo supervisorctl reread
             sudo supervisorctl update
+            sudo supervisorctl restart fastapi-book-project
